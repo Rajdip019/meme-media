@@ -4,9 +4,9 @@ import MenuItem from '@mui/material/MenuItem';
 import { Avatar } from '@mui/material';
 import { ClassNameMap, DefaultTheme, makeStyles, WithStylesOptions } from '@mui/styles';
 
-const Style = makeStyles<WithStylesOptions<DefaultTheme>>({
+const Style = makeStyles<WithStylesOptions<DefaultTheme>>({ //Materia UI Styles for Menu
     menu: {
-        "& .MuiPaper-root": {
+        "& .MuiPaper-root": { // This is to only style the Menu Paper Section
             backgroundColor: "#0d0d0d"
         }
     },

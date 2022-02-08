@@ -2,9 +2,9 @@ import React, {useState} from 'react';
 import { Avatar, Drawer } from '@mui/material';
 import { ClassNameMap, DefaultTheme, makeStyles, WithStylesOptions } from '@mui/styles';
 
-const Style = makeStyles<WithStylesOptions<DefaultTheme>>({
+const Style = makeStyles<WithStylesOptions<DefaultTheme>>({ //Materia UI Styles for Menu
     Drawer: {
-      "& .MuiDrawer-paper": {
+      "& .MuiDrawer-paper": { // This is to only style the Drawer Paper Section
         backgroundColor: "#0d0d0d",
         borderRadius: "10px 0px 0px 10px",
         width: "80%"
