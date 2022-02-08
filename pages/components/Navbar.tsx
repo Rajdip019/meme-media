@@ -1,8 +1,11 @@
 import React from 'react';
 
 const Navbar: React.FC = () => {
-  return <div>
-  </div>;
+  return (
+    <React.Fragment>
+      This is Main Navbar
+    </React.Fragment>
+  );
 };
 
 export default Navbar;

@@ -1,7 +1,11 @@
 import React from 'react';
 
 const Main: React.FC = () => {
-  return <div>Hello There Again</div>;
+  return (
+    <React.Fragment>
+      This is main Feed
+    </React.Fragment>
+  );
 };
 
 export default Main;

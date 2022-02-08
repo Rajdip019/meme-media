@@ -1,7 +1,11 @@
 import React from 'react';
 
 const RightNewsBar: React.FC = () => {
-  return <div></div>;
+  return (
+    <React.Fragment>
+      This is Right Bar
+    </React.Fragment>
+  );
 };
 
 export default RightNewsBar;
