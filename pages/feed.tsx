@@ -1,5 +1,5 @@
 import React from 'react';
-import NavBar from "./components/Feed/Navbar"
+import NavBar from "./components/Feed/Navbar/NavbarFeedMain"
 import Head from 'next/head';
 
 const feed: React.FC = () => {
