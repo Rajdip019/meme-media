@@ -69,7 +69,7 @@ const NavbarMenu: React.FC<Props> = ({ img, name, email, isauthenticated }) => {
                             </>
 
                         ) : (
-                            <Link href="/auth/login">
+                            <Link href="/auth/signin">
                                 <MenuItem onClick={handleClose} className="text-white hover:bg-gray-800 transition-all font-semibold w-36">SignIn</MenuItem>
                             </Link>
                         )}
