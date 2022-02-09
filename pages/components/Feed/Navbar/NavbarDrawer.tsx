@@ -16,7 +16,7 @@ const Style = makeStyles<WithStylesOptions<DefaultTheme>>({ //Materia UI Styles 
   }
 })
 
-interface Props { //Interface of the Prop Passed in this Compnent
+type Props = { //Interface of the Prop Passed in this Compnent
   img: string,
   name: string,
   email: string
