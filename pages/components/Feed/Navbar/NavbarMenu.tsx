@@ -3,6 +3,9 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { Avatar } from '@mui/material';
 import { ClassNameMap, DefaultTheme, makeStyles, WithStylesOptions } from '@mui/styles';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import { signOut } from 'next-auth/react';
+import Link from 'next/link';
 
 const Style = makeStyles<WithStylesOptions<DefaultTheme>>({ //Materia UI Styles for Menu
     menu: {
@@ -12,8 +15,14 @@ const Style = makeStyles<WithStylesOptions<DefaultTheme>>({ //Materia UI Styles 
     },
 })
 
-const NavbarMenu: React.FC = () => {
+interface Props { //Interface of the Prop Passed in this Compnent
+    img: string,
+    name: string,
+    email: string
+    isauthenticated: "authenticated" | "unauthenticated" | "loading"
+}
 
+const NavbarMenu: React.FC<Props> = ({ img, name, email, isauthenticated }) => {
 
     const classes: ClassNameMap<"menu"> = Style()
 
@@ -37,7 +46,10 @@ const NavbarMenu: React.FC = () => {
                     onClick={handleClick}
 
                 >
-                    <Avatar className=' cursor-pointer' />
+                    <div className='flex items-center'>
+                        <Avatar className=' cursor-pointer ring-2 ring-white' src={img} alt={name} sx={{ width: 42, height: 42 }} />
+                        <ArrowDropDownIcon className='ml-2' />
+                    </div>
                 </button>
                 <Menu
                     id="basic-menu"
@@ -47,11 +59,20 @@ const NavbarMenu: React.FC = () => {
                     className={classes.menu}
                 >
                     <div>
-                        <MenuItem onClick={handleClose} className="text-white hover:bg-gray-800 transition-all font-semibold">Profile</MenuItem>
-                        <MenuItem onClick={handleClose} className="text-white hover:bg-gray-800 transition-all font-semibold">Favourites</MenuItem>
-                        <MenuItem onClick={handleClose} className="text-white hover:bg-gray-800 transition-all font-semibold">Donwloads</MenuItem>
-                        <MenuItem onClick={handleClose} className="text-white hover:bg-gray-800 transition-all font-semibold">Your Memes</MenuItem>
-                        <MenuItem onClick={handleClose} className="text-white hover:bg-gray-800 transition-all font-semibold">Logout</MenuItem>
+                        {isauthenticated === "authenticated" ? (
+                            <>
+                                <MenuItem onClick={handleClose} className="text-white hover:bg-gray-800 transition-all font-semibold">Profile</MenuItem>
+                                <MenuItem onClick={handleClose} className="text-white hover:bg-gray-800 transition-all font-semibold">Favourites</MenuItem>
+                                <MenuItem onClick={handleClose} className="text-white hover:bg-gray-800 transition-all font-semibold">Donwloads</MenuItem>
+                                <MenuItem onClick={handleClose} className="text-white hover:bg-gray-800 transition-all font-semibold">Your Memes</MenuItem>
+                                <MenuItem onClick={(): void => { handleClose(); signOut(); }} className="text-white hover:bg-gray-800 transition-all font-semibold">Logout</MenuItem>
+                            </>
+
+                        ) : (
+                            <Link href="/auth/login">
+                                <MenuItem onClick={handleClose} className="text-white hover:bg-gray-800 transition-all font-semibold w-36">SignIn</MenuItem>
+                            </Link>
+                        )}
                     </div>
                 </Menu>
             </div>
