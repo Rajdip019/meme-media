@@ -16,14 +16,14 @@ const login: React.FC = ({ providers }: any) => {
               <img src="/logo Bg.png" alt="" className='w-12' />
               <span className='ml-5 font-bold lg:text-2xl text-xl font-serif text-white'>Meme Media</span>
             </div>
-            <p className='text-center my-3 text-gray-300'>SignIn with..</p>
+            <p className='text-center my-3 text-gray-300'>SignIn with  👇</p>
           <button className='bg-gray-200 w-full rounded-full font-bold py-3 my-3 text-lg hover:bg-white transition-all' onClick={(): void => { signIn(providers.google.id, { callbackUrl: "/feed" }) }}>
             <GoogleIcon className='mr-2'/> Google
           </button>
           <button className='bg-gray-200 w-full rounded-full font-bold py-3 my-3 text-lg hover:bg-white transition-all' onClick={(): void => { signIn(providers.twitter.id, { callbackUrl: "/feed" }) }}>
           <TwitterIcon className='mr-2'/> Twitter
           </button>
-          <button className='bg-gray-200 w-full rounded-full font-bold py-3 my-3 text-lg hover:bg-white transition-all' onClick={(): void => { signIn(providers.google.id, { callbackUrl: "/feed" }) }}>
+          <button className='bg-gray-200 w-full rounded-full font-bold py-3 my-3 text-lg hover:bg-white transition-all' onClick={(): void => { signIn(providers.github.id, { callbackUrl: "/feed" }) }}>
           <GitHubIcon className='mr-2'/> GitHub
           </button>
         </div>
