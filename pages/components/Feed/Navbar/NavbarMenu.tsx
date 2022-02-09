@@ -15,7 +15,7 @@ const Style = makeStyles<WithStylesOptions<DefaultTheme>>({ //Materia UI Styles 
     },
 })
 
-interface Props { //Interface of the Prop Passed in this Compnent
+type Props = { //Interface of the Prop Passed in this Compnent
     img: string,
     name: string,
     email: string
@@ -61,6 +61,9 @@ const NavbarMenu: React.FC<Props> = ({ img, name, email, isauthenticated }) => {
                     <div>
                         {isauthenticated === "authenticated" ? (
                             <>
+                            <p className='text-gray-50 px-3 pt-3 font-semibold'>{name}</p>
+                            <p className='text-gray-50 px-3 pb-3 font-light text-sm'>{email}</p>
+                            <hr  className='w-11/12 mx-auto'/>
                                 <MenuItem onClick={handleClose} className="text-white hover:bg-gray-800 transition-all font-semibold">Profile</MenuItem>
                                 <MenuItem onClick={handleClose} className="text-white hover:bg-gray-800 transition-all font-semibold">Favourites</MenuItem>
                                 <MenuItem onClick={handleClose} className="text-white hover:bg-gray-800 transition-all font-semibold">Donwloads</MenuItem>
