@@ -4,9 +4,11 @@ import Head from 'next/head';
 import Feed from './components/Feed/Main';
 import { GetStaticProps } from 'next';
 import { MemeRedditMain, MemeRedditChildern } from '../interfaces/meme-reddit';
+import LeftProfileBar from './components/Feed/LeftProfileBar';
+import RightNewsBar from './components/Feed/RightNewsBar/RightNewsBar';
 
-const feed: React.FC<MemeRedditMain> = ({meme}) => {
-console.log(meme.data.children[5].data.author);
+const feed: React.FC<MemeRedditMain> = ({ meme }) => {
+
   const memeData = meme?.data?.children
 
   return (
@@ -19,31 +21,42 @@ console.log(meme.data.children[5].data.author);
         <title>MemeMedia | Explore</title>
       </Head>
       <NavBar />
-      {memeData.map((memes : MemeRedditChildern) => {
-        return(
-        <Feed 
-        id = {memes?.data?.id}
-        image = {memes?.data?.url_overridden_by_dest}
-        title = {memes?.data?.title}
-        post_hint = {memes?.data?.post_hint}
-        author = {memes?.data?.author}
-        reddit_page  = {memes.data.subreddit_name_prefixed} 
-        ups = {memes.data.ups}
-        />
-        )
-      })}
+      <div className='grid grid-cols-9 lg:w-[1240px] mx-auto'>
+        <div className="col-span-2  mx-auto">
+        <LeftProfileBar />
+        </div>
+        <div className='col-span-5 mx-auto'>
+          {memeData.map((memes: MemeRedditChildern) => {
+            return (
+              <Feed
+                id={memes?.data?.id}
+                image={memes?.data?.url_overridden_by_dest}
+                title={memes?.data?.title}
+                post_hint={memes?.data?.post_hint}
+                author={memes?.data?.author}
+                reddit_page={memes.data.subreddit_name_prefixed}
+                ups={memes.data.ups}
+              />
+            )
+
+          })}
+        </div>
+        <div className='col-span-2 mx-auto sticky top-0'>
+          <RightNewsBar />
+        </div>
+      </div>
     </div>
   );
 };
 
 export default feed;
 
-export const getStaticProps : GetStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   const res: Response = await fetch("http://localhost:3000/api/coding-meme");
   const data: Promise<JSON> = await res.json()
   return {
-    props : {
-      meme : data
+    props: {
+      meme: data
     }
-}
+  }
 }
