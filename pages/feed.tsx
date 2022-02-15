@@ -3,11 +3,11 @@ import NavBar from "./components/Feed/Navbar/NavbarFeedMain"
 import Head from 'next/head';
 import Feed from './components/Feed/Main';
 import { GetStaticProps } from 'next';
+import { MemeRedditMain, MemeRedditChildern } from '../interfaces/meme-reddit';
 
-type Meme = Promise<JSON>
-
-const feed: React.FC = ({meme}: any) => {
+const feed: React.FC<MemeRedditMain> = ({meme}) => {
 console.log(meme.data.children[5].data.author);
+  const memeData = meme?.data?.children
 
   return (
     <div className='bg-gray-900'>
@@ -19,14 +19,16 @@ console.log(meme.data.children[5].data.author);
         <title>MemeMedia | Explore</title>
       </Head>
       <NavBar />
-      {meme.data.children.map((memes : any) => {
+      {memeData.map((memes : MemeRedditChildern) => {
         return(
         <Feed 
-        id = {memes.data.id}
-        image = {memes.data.url_overridden_by_dest}
-        title = {memes.data.title}
-        post_hint = {memes.data.post_hint}
-        author = {memes.data.author} 
+        id = {memes?.data?.id}
+        image = {memes?.data?.url_overridden_by_dest}
+        title = {memes?.data?.title}
+        post_hint = {memes?.data?.post_hint}
+        author = {memes?.data?.author}
+        reddit_page  = {memes.data.subreddit_name_prefixed} 
+        ups = {memes.data.ups}
         />
         )
       })}

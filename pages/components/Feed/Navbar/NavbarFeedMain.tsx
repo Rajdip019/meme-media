@@ -15,7 +15,7 @@ const Navbar: React.FC = () => {
 
   return (
     <React.Fragment>
-      <header className='w-screen bg-[#0d0d0d] text-gray-50  py-5 flex flex-col shadow-lg'>
+      <header className=' bg-[#0d0d0d] text-gray-50  py-5 flex flex-col shadow-lg'>
         <div className='flex items-center justify-between w-[90%] lg:px-48 md:px-10 mx-auto'>
           <Link href="/feed">
             <div className='flex items-center cursor-pointer'>
