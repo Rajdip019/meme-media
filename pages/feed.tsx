@@ -2,10 +2,11 @@ import React from 'react';
 import NavBar from "./components/Feed/Navbar/NavbarFeedMain"
 import Head from 'next/head';
 import Feed from './components/Feed/Main';
-import { GetStaticProps } from 'next';
+import { GetServerSideProps, GetStaticProps } from 'next';
 import { MemeRedditMain, MemeRedditChildern } from '../interfaces/meme-reddit';
 import LeftProfileBar from './components/Feed/LeftProfileBar';
 import RightNewsBar from './components/Feed/RightNewsBar/RightNewsBar';
+import {template} from '../helpers/template'
 
 const feed: React.FC<MemeRedditMain> = ({ meme }) => {
 
@@ -51,8 +52,9 @@ const feed: React.FC<MemeRedditMain> = ({ meme }) => {
 
 export default feed;
 
-export const getStaticProps: GetStaticProps = async () => {
-  const res: Response = await fetch("http://localhost:3000/api/coding-meme");
+export const getServerSideProps : GetServerSideProps = async () => {
+  const { templateString } = template
+  const res: Response = await fetch(`${templateString}/meme/coding`);
   const data: Promise<JSON> = await res.json()
   return {
     props: {
