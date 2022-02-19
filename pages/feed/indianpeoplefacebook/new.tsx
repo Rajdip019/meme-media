@@ -8,9 +8,8 @@ import RightNewsBar from '../../components/Feed/RightNewsBar/RightNewsBar';
 import { template } from '../../../helpers/template'
 import MemeSkeleton from '../../components/MemeSkeleton';
 import { CircularProgress } from '@mui/material';
-import PopularTab from '../../components/Feed/Tabs/PopularTab';
+import NewTab from '../../components/Feed/Tabs/NewTab';
 import Menu from '../../components/Feed/Tabs/Menu';
-
 
 const feed: React.FC = () => {
 
@@ -21,7 +20,7 @@ const feed: React.FC = () => {
 
   const fetchMeme = async () => {
     const { templateString } = template
-    const res = await fetch(`${templateString}/meme/economy`, {
+    const res = await fetch(`${templateString}/meme/social/new`, {
       method: 'POST',
       headers: {
         "Content-Type": "application/json",
@@ -60,7 +59,7 @@ const feed: React.FC = () => {
           {isMemeFetched ? (
             <>
           <div className='w-11/12 sm:w-[545px] mx-auto my-5'>
-            <PopularTab route={memesArr[0]?.data.subreddit}/>
+            <NewTab route={memesArr[0]?.data.subreddit}/>
           </div>
               {memesArr.map((memes: MemeRedditChildern) => {
                 return (

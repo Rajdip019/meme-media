@@ -21,7 +21,7 @@ const feed: React.FC = () => {
 
   const fetchMeme = async () => {
     const { templateString } = template
-    const res = await fetch(`${templateString}/meme/economy`, {
+    const res = await fetch(`${templateString}/meme/cricket`, {
       method: 'POST',
       headers: {
         "Content-Type": "application/json",

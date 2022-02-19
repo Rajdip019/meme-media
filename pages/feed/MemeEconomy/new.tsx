@@ -9,6 +9,7 @@ import { template } from '../../../helpers/template'
 import MemeSkeleton from '../../components/MemeSkeleton';
 import { CircularProgress } from '@mui/material';
 import NewTab from '../../components/Feed/Tabs/NewTab';
+import Menu from '../../components/Feed/Tabs/Menu';
 
 const feed: React.FC = () => {
 
@@ -54,6 +55,7 @@ const feed: React.FC = () => {
           <LeftProfileBar />
         </div>
         <div className=' xl:col-span-5 mx-auto'>
+        <Menu />
           {isMemeFetched ? (
             <>
           <div className='w-11/12 sm:w-[545px] mx-auto my-5'>
