@@ -2,10 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Avatar } from "@mui/material";
 import { useSession } from 'next-auth/react';
 import DownloadIcon from '@mui/icons-material/Download';
-import ShareIcon from '@mui/icons-material/Share';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import FileSaver, { saveAs } from 'file-saver'
+import ShareModal from "./ShareModal"
 
 
 type Props = {
@@ -20,14 +19,7 @@ type Props = {
 
 const Feed: React.FC<Props> = ({ id, image, title, post_hint, author, reddit_page, ups }) => {
 
-
   const session = useSession<boolean>();
-
-  const downloadMeme = (url: string) => {
-    saveAs(url, 'meme.jpg')
-    console.log(url);
-     // Put your image url here.
-  }
 
   const [hasLiked, setHasLiked] = useState<boolean>(false);
 
@@ -64,7 +56,7 @@ const Feed: React.FC<Props> = ({ id, image, title, post_hint, author, reddit_pag
             <div className="flex justify-between mt-2 sm:w-11/12 mx-auto">
               {session.status === "authenticated" && (
                 <div
-                  className="items-center font-semibold p-2 cursor-pointer text-gray-100 hover:bg-gray-800 rounded-lg transition-all w-full flex justify-center" onClick={(): void => { setHasLiked(!hasLiked) }}
+                  className="items-center font-semibold py-2 sm:p-2 cursor-pointer text-gray-100 hover:bg-gray-800 rounded-lg transition-all w-full flex justify-center" onClick={(): void => { setHasLiked(!hasLiked) }}
                 >
                   <>
                     {hasLiked ? (
@@ -81,17 +73,17 @@ const Feed: React.FC<Props> = ({ id, image, title, post_hint, author, reddit_pag
                   </>
                 </div>
               )}
-              {session.status === "unauthenticated" && (null) }
-              <div className=" items-center font-semibold p-2 cursor-pointer text-gray-100 hover:bg-gray-800 rounded-lg transition-all w-full flex justify-center">
-                <ShareIcon sx={{ marginRight: 1, height: 20 }} />
-                Share
-              </div>
-              <div className="sm:flex items-center font-semibold p-2 cursor-pointer text-gray-100 hover:bg-gray-800 rounded-lg transition-all w-full flex justify-center" onClick={(): void => {downloadMeme(image)}}>
+              {session.status === "unauthenticated" && (null)}
+              <ShareModal reddit_page={reddit_page} id={id}/>
+              <a href={image} download target="_blank" >
+              <div className="sm:flex items-center font-semibold py-2 sm:p-2 cursor-pointer text-gray-100 hover:bg-gray-800 rounded-lg transition-all w-full flex justify-center" >
                 <DownloadIcon sx={{ height: 24, marginRight: 1 }} />
                 Download
               </div>
+              </a>
             </div>
           </div>
+
         </React.Fragment>
       )}
     </React.Fragment>
