@@ -84,7 +84,7 @@ const Menu = () => {
     
     return (
         <div>
-            <Box sx={{ bgcolor: '#003A75', color: "white" }} className="mx-auto w-11/12 sm:w-[545px] my-5">
+            <Box sx={{ bgcolor: '#003A75', color: "white" }} className="mx-auto w-[90vw]  sm:w-[545px] my-5">
                 <Tabs
                     value={value}
                     onChange={handleChange}

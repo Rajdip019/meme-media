@@ -17,7 +17,7 @@ const Navbar: React.FC = () => {
     <React.Fragment>
       <header className=' bg-[#0d0d0d] text-gray-50  py-5 flex flex-col shadow-lg'>
         <div className='flex items-center justify-between w-[90%] lg:px-48 md:px-10 mx-auto'>
-          <Link href="/feed">
+          <Link href="/feed/memes">
             <div className='flex items-center cursor-pointer'>
               <img src="/logo Bg.png" alt="" className='w-12' />
               <span className='ml-5 font-bold lg:text-2xl text-xl font-serif'>Meme Media</span>
