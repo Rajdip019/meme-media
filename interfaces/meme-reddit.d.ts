@@ -11,6 +11,7 @@ export interface MemeRedditMain {
 export interface MemeRedditChildern {
     data : {
         id: string,
+        subreddit : string
         title: string,
         post_hint: string,
         created: number,
