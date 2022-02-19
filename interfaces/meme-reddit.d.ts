@@ -1,10 +1,11 @@
 export interface MemeRedditMain {
-    meme : {
+
         kind: string,
         data: {
+          after: string,
           children : MemeRedditChildern[] 
         }
-      }
+
 }
 
 export interface MemeRedditChildern {

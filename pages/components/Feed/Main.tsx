@@ -5,6 +5,8 @@ import DownloadIcon from '@mui/icons-material/Download';
 import ShareIcon from '@mui/icons-material/Share';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import FileSaver, { saveAs } from 'file-saver'
+
 
 type Props = {
   id: string,
@@ -20,6 +22,12 @@ const Feed: React.FC<Props> = ({ id, image, title, post_hint, author, reddit_pag
 
 
   const session = useSession<boolean>();
+
+  const downloadMeme = (url: string) => {
+    saveAs('https://i.redd.it/x327os3t1oi81.jpg', 'meme.jpg')
+    console.log(url);
+     // Put your image url here.
+  }
 
   const [hasLiked, setHasLiked] = useState<boolean>(false);
 
@@ -44,7 +52,7 @@ const Feed: React.FC<Props> = ({ id, image, title, post_hint, author, reddit_pag
             </div>
             <>
               <h3 className="my-2">{title}</h3>
-              <img src={image} alt="" className="mx-auto rounded-lg" />
+              <img src={image} alt="" className="mx-auto rounded-lg" loading="lazy" />
             </>
             <div className="flex justify-between">
               <div className="text-sm py-2 font-bold text-gray-600"> {ups} People loved❤️ it in reddit</div>
@@ -78,7 +86,7 @@ const Feed: React.FC<Props> = ({ id, image, title, post_hint, author, reddit_pag
                 <ShareIcon sx={{ marginRight: 1, height: 20 }} />
                 Share
               </div>
-              <div className="sm:flex items-center font-semibold p-2 cursor-pointer text-gray-100 hover:bg-gray-800 rounded-lg transition-all w-full flex justify-center">
+              <div className="sm:flex items-center font-semibold p-2 cursor-pointer text-gray-100 hover:bg-gray-800 rounded-lg transition-all w-full flex justify-center" onClick={(): void => {downloadMeme(image)}}>
                 <DownloadIcon sx={{ height: 24, marginRight: 1 }} />
                 Download
               </div>
