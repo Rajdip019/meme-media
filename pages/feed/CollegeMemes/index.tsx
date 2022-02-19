@@ -21,7 +21,7 @@ const feed: React.FC = () => {
 
   const fetchMeme = async () => {
     const { templateString } = template
-    const res = await fetch(`${templateString}/meme/economy`, {
+    const res = await fetch(`${templateString}/meme/college`, {
       method: 'POST',
       headers: {
         "Content-Type": "application/json",
@@ -56,7 +56,7 @@ const feed: React.FC = () => {
           <LeftProfileBar />
         </div>
         <div className=' xl:col-span-5 mx-auto'>
-        <Menu />
+          <Menu />
           {isMemeFetched ? (
             <>
           <div className='w-11/12 sm:w-[545px] mx-auto my-5'>

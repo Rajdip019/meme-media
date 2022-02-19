@@ -24,7 +24,7 @@ const Feed: React.FC<Props> = ({ id, image, title, post_hint, author, reddit_pag
   const session = useSession<boolean>();
 
   const downloadMeme = (url: string) => {
-    saveAs('https://i.redd.it/x327os3t1oi81.jpg', 'meme.jpg')
+    saveAs(url, 'meme.jpg')
     console.log(url);
      // Put your image url here.
   }
