@@ -37,7 +37,7 @@ const ChildConfirmModal: React.FC<Props> = ({ openChild, setOpenChild, handleClo
                 You will lost all progress!
                 <CloseIcon
                   onClick={() => {
-                    handleClose();
+                    handleClose(); //Closing the child modal
                   }}
                   className=" cursor-pointer"
                 />
@@ -46,7 +46,7 @@ const ChildConfirmModal: React.FC<Props> = ({ openChild, setOpenChild, handleClo
                 <button
                   className="font-bold bg-skin-main px-4 py-2 rounded-full text-white hover:bg-gray-900 transition-all mx-3"
                   onClick={(): void => {
-                    handleClose();
+                    handleClose(); //Closing the child modal
                   }}
                 >
                   Cancel
@@ -55,7 +55,7 @@ const ChildConfirmModal: React.FC<Props> = ({ openChild, setOpenChild, handleClo
                 <button
                   className="font-bold bg-red-800 px-4 py-2 rounded-full text-white transition-all"
                   onClick={() => {
-                    handleCloseMain();
+                    handleCloseMain(); //Closing the parent as well as the child modal.
                   }}
                 >
                   Delete
