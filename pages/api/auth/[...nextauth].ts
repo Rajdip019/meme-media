@@ -22,4 +22,10 @@ export default NextAuth({
   pages: {
     signIn: "/auth/signin",
   },
+  callbacks: {
+    session({ session, token, user }) {
+      session.user.id = token.sub;
+      return session // The return type will match the one returned in `useSession()`
+    },
+  },
 });

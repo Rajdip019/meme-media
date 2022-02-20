@@ -23,7 +23,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "lib/mongodb.js", "pages/usercheck.jsx"  ],
   "exclude": [
     "node_modules"
   ]

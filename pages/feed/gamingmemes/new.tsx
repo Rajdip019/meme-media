@@ -9,7 +9,7 @@ import { template } from '../../../helpers/template'
 import MemeSkeleton from '../../components/MemeSkeleton';
 import { CircularProgress } from '@mui/material';
 import NewTab from '../../components/Feed/Tabs/NewTab';
-import Menu from '@mui/icons-material/Menu';
+import Menu from '../../components/Feed/Tabs/Menu';
 
 
 const feed: React.FC = () => {
