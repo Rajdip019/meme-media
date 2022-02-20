@@ -1,6 +1,7 @@
 import React from "react";
 import { Avatar } from "@mui/material";
 import { useSession } from "next-auth/react";
+import Link from "next/link";
 
 const LeftProfileBar: React.FC = () => {
   const session = useSession<boolean>();
@@ -11,12 +12,24 @@ const LeftProfileBar: React.FC = () => {
 
       <div className="w-72 bg-[#0d0d0d] mx-auto mt-5 rounded-xl sticky top-5">
         <img src="https://static.vecteezy.com/system/resources/thumbnails/001/225/154/small/black-low-poly-geometric-background.jpg" alt="" className="rounded-t-xl" />
-        <Avatar
+        {session.status === "authenticated" ? (
+          <Avatar
           alt= {name}
           src= {image}
           sx={{ width: 80, height: 80 }}
-          className="mx-auto -mt-12 ring-2 ring-white"
+          className="mx-auto -mt-12 ring-2 ring-white cursor-pointer"
         />
+        ): (
+          <Link href="/auth/signin">
+          <Avatar
+            alt= {name}
+            src= {image}
+            sx={{ width: 80, height: 80 }}
+            className="mx-auto -mt-12 ring-2 ring-white cursor-pointer bg-black"
+          />
+          </Link>
+
+        )}
         <p className="text-center mt-3 mb-1 font-semibold text-md text-gray-50">
           {name}
         </p>

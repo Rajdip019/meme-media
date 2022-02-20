@@ -27,13 +27,19 @@ const Navbar: React.FC = () => {
             </div>
           </Link>
           <input type="text" className=' bg-slate-800 rounded-full text-lg h-9 px-4 lg:w-[40%] hidden md:block' placeholder='Search Meme 😃' />
+          {isauthenticated === "authenticated" ? (
+            <NavbarMenu
+              name={name}
+              email={email}
+              img={img}
+              isauthenticated={isauthenticated}
+            />
+          ) : (
+            <Link href="/auth/signin">
+            <button className='border-2 border-gray-700 px-4 py-2 rounded-lg font-bold hover:bg-gray-700 transition-all'>SignIn</button>
+            </Link>
+          )}
           {/* Menu List Code */}
-          <NavbarMenu
-            name={name}
-            email={email}
-            img={img}
-            isauthenticated={isauthenticated}
-          />
           {/* Drawer for  Mobile Devices */}
           <NavbarDrawer
             name={name}
