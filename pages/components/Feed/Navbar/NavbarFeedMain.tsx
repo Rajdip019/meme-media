@@ -11,8 +11,11 @@ const Navbar: React.FC = () => {
   const img: string = session.data?.user?.image;
   const name: string = session.data?.user?.name;
   const email: string = session.data?.user?.email;
+  const id: string = session.data?.user?.id
   const isauthenticated: "authenticated" | "unauthenticated" | "loading" = session.status
 
+  console.log(session);
+  
   return (
     <React.Fragment>
       <header className=' bg-[#0d0d0d] text-gray-50  py-5 flex flex-col shadow-lg'>
