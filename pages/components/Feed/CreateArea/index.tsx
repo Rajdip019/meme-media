@@ -21,21 +21,24 @@ const CreateArea: React.FC<Props> = ({ name, image, email, id }) => {
 
     const session = useSession();
 
-    const [open, setOpen] = useState<boolean>(false);
+    const [open, setOpen] = useState<boolean>(false); //Handles the state of Parent Modal
+    
+    // Functions that handles Parent Modal
     const handleOpen = () => setOpen(true);
     const handleClose = () => {
-        setOpen(false);
-        setSelectedFile(null);
-        setOpenChild(false);
+        setOpen(false); //Closing the parent Modal
+        setSelectedFile(null); // Making the selected Image(if any) Null
+        setOpenChild(false); //Closing the Children modal
     };
 
-    const [openChild, setOpenChild] = useState<boolean>(false);
+    const [openChild, setOpenChild] = useState<boolean>(false); //Handles the state of Children Modal
 
     const [post, setPost] = useState();
     const [posting, setPosting] = useState(false);
-    const filePickerRef = useRef(null);
-    const [selectedFile, setSelectedFile] = useState(null);
+    const filePickerRef = useRef(null); //Picking the image file using useRef.
+    const [selectedFile, setSelectedFile] = useState(null); //handleing the state of image File
 
+    //Displaying the Selected Image
     const addImageToPost = (e: React.ChangeEvent<HTMLInputElement>) => {
         const reader = new FileReader();
         if (e.target.files[0]) {
@@ -106,7 +109,7 @@ const CreateArea: React.FC<Props> = ({ name, image, email, id }) => {
             <Modal
                 open={open}
                 onClose={(): void => {
-                    setOpenChild(true);
+                    setOpenChild(true); //Opening the child modal when ever clicked outside
                 }}
                 aria-labelledby="Create Area"
                 aria-describedby="Create a Meme"
@@ -118,10 +121,10 @@ const CreateArea: React.FC<Props> = ({ name, image, email, id }) => {
                             <h1 className="text-2xl pb-4 pt-2 flex justify-between">
                                 Create a Post{" "}
                                 <div>
-                                    <ChildConfirmModal
+                                    <ChildConfirmModal //This is child modal component
                                         openChild={openChild}
-                                        setOpenChild={setOpenChild}
-                                        handleCloseMain={handleClose}
+                                        setOpenChild={setOpenChild} //passing the setOpenChilf fucntion that handles the children modal
+                                        handleCloseMain={handleClose} //Pasing the parent modal close function to close it from children modal
                                     />
                                 </div>
                             </h1>
@@ -176,7 +179,7 @@ const CreateArea: React.FC<Props> = ({ name, image, email, id }) => {
                                     <input
                                         ref={filePickerRef}
                                         type="file"
-                                        hidden
+                                        hidden //hiding the input and diplaying the ref item
                                         onChange={addImageToPost}
                                     />
                                 </div>
