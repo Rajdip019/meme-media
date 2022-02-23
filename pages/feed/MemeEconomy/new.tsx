@@ -3,6 +3,7 @@ import NavBar from "../../components/Feed/Navbar/NavbarFeedMain"
 import Head from 'next/head';
 import Feed from '../../components/Feed/Main';
 import { MemeRedditMain, MemeRedditChildern } from '../../../interfaces/meme-reddit';
+import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
 import LeftProfileBar from '../../components/Feed/LeftProfileBar';
 import RightNewsBar from '../../components/Feed/RightNewsBar/RightNewsBar';
 import { template } from '../../../helpers/template'
@@ -92,6 +93,7 @@ const feed: React.FC = () => {
           <RightNewsBar />
         </div>
       </div>
+      <button type='button' className='fixed text-white bottom-10 right-10 transition-all scale-150' onClick={() => {document.getElementById('top').scrollIntoView();}} ><ArrowCircleUpIcon className='scale-150'/></button>
     </div>
   );
 };

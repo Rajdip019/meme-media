@@ -10,6 +10,7 @@ import MemeSkeleton from '../../components/MemeSkeleton';
 import { CircularProgress } from '@mui/material';
 import NewTab from '../../components/Feed/Tabs/NewTab';
 import Menu from '../../components/Feed/Tabs/Menu';
+import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
 
 const feed: React.FC = () => {
 
@@ -92,6 +93,7 @@ const feed: React.FC = () => {
           <RightNewsBar />
         </div>
       </div>
+      <button type='button' className='fixed text-white bottom-10 right-10 transition-all scale-150' onClick={() => {document.getElementById('top').scrollIntoView();}} ><ArrowCircleUpIcon className='scale-150'/></button>
     </div>
   );
 };
