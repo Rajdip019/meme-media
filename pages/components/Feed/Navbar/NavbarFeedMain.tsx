@@ -14,11 +14,10 @@ const Navbar: React.FC = () => {
   const id: string = session.data?.user?.id
   const isauthenticated: "authenticated" | "unauthenticated" | "loading" = session.status
 
-  console.log(session);
   
   return (
     <React.Fragment>
-      <header className=' bg-[#0d0d0d] text-gray-50  py-5 flex flex-col shadow-lg'>
+      <header className=' bg-[#0d0d0d] text-gray-50  py-5 flex flex-col shadow-lg' id='top'>
         <div className='flex items-center justify-between w-[90%] lg:px-48 md:px-10 mx-auto'>
           <Link href="/feed/memes">
             <div className='flex items-center cursor-pointer'>

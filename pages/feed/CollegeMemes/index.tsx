@@ -10,6 +10,7 @@ import MemeSkeleton from '../../components/MemeSkeleton';
 import { CircularProgress } from '@mui/material';
 import PopularTab from '../../components/Feed/Tabs/PopularTab';
 import Menu from '../../components/Feed/Tabs/Menu';
+import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
 
 
 const feed: React.FC = () => {
@@ -50,7 +51,9 @@ const feed: React.FC = () => {
         <link rel="shortcut icon" href="/logo Bg.png" type="image/x-icon" />
         <title>MemeMedia | College Memes</title>
       </Head>
+
       <NavBar />
+ 
       <div className='grid xl:grid-cols-9 xl:w-[1240px] mx-auto  '>
         <div className="col-span-2  mx-auto hidden xl:block">
           <LeftProfileBar />
@@ -93,6 +96,7 @@ const feed: React.FC = () => {
           <RightNewsBar />
         </div>
       </div>
+      <button type='button' className='fixed text-white bottom-10 right-10 transition-all scale-150' onClick={() => {document.getElementById('top').scrollIntoView();}} ><ArrowCircleUpIcon className='scale-150'/></button>
     </div>
   );
 };

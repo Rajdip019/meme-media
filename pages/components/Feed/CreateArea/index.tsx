@@ -8,6 +8,7 @@ import ChildConfirmModal from "./ChildConfirmationModal";
 import { useSession } from "next-auth/react"
 import LockOpenIcon from '@mui/icons-material/LockOpen';
 import Link from "next/link";
+import {template} from "../../../../helpers/template"
 
 
 type Props = {
@@ -33,10 +34,11 @@ const CreateArea: React.FC<Props> = ({ name, image, email, id }) => {
 
     const [openChild, setOpenChild] = useState<boolean>(false); //Handles the state of Children Modal
 
-    const [post, setPost] = useState();
-    const [posting, setPosting] = useState(false);
+    const [post, setPost] = useState<string>("");
+    const [posting, setPosting] = useState<boolean>(false);
     const filePickerRef = useRef(null); //Picking the image file using useRef.
     const [selectedFile, setSelectedFile] = useState(null); //handleing the state of image File
+    const [loading, setLoading] = useState<boolean>(false)
 
     //Displaying the Selected Image
     const addImageToPost = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -49,6 +51,47 @@ const CreateArea: React.FC<Props> = ({ name, image, email, id }) => {
             setSelectedFile(readerEvent.target.result);
         };
     };
+
+    const postMeme = async () => {
+        const url = await imgUpload();
+        const { templateString } = template;
+        const res = await fetch(`${templateString}/addmeme`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            title: post,
+            url_overridden_by_dest: url,
+            authorId: session?.data?.user?.id,
+            authorImage: session?.data?.user?.image,
+            authorName : session?.data?.user?.name
+          }),
+        });
+        const response = await res.json();
+        setLoading(false);
+        handleClose();
+        setPosting(false);
+      };
+
+
+    const imgUpload = async () => {
+        const data = new FormData();
+        data.append("file", selectedFile);
+        data.append("upload_preset", "bookImg");
+        data.append("cloud_name", "bookleemedia");
+        const res = await fetch(
+          "https://api.cloudinary.com/v1_1/bookleemedia/image/upload",
+          {
+            method: "POST",
+            body: data,
+          }
+        );
+        const img = await res.json();
+        return img.url as string;
+      };
+
+    
 
     return (
         <div className=" w-11/12 sm:w-[545px] mx-auto my-5 bg-[#0D0D0D] rounded-xl  px-4 pt-4 pb-2 border-gray-500 border-[1px] border-opacity-30 text-gray-100">
@@ -140,8 +183,8 @@ const CreateArea: React.FC<Props> = ({ name, image, email, id }) => {
                             </div>
                             <textarea
                                 className="h-16 sm:h-32 resize-none w-full mt-5 bg-[#0D0D0D] focus:outline-none px-2 text-gray-100"
-                                onChange={(e) => {
-                                    setPost(null);
+                                onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+                                    setPost(e.target.value);
                                 }}
                                 placeholder="What do you want to talk about?"
                             ></textarea>
@@ -184,7 +227,9 @@ const CreateArea: React.FC<Props> = ({ name, image, email, id }) => {
                                     />
                                 </div>
                                 {post ? (
-                                    <button className="font-bold bg-skin-main px-4 py-2 rounded-full text-white hover:bg-blue-800 transition-all">
+                                    <button className="font-bold bg-skin-main px-4 py-2 rounded-full text-white hover:bg-blue-800 transition-all"
+                                    onClick={(): void => {postMeme(); setPosting(true)}}
+                                    >
                                         {posting ? <>Posting</> : <>Post</>}
                                     </button>
                                 ) : (

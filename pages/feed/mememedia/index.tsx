@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
 import NavBar from "../../components/Feed/Navbar/NavbarFeedMain";
 import Head from "next/head";
-import Feed from "../../components/Feed/Main";
-import {
-  MemeRedditMain,
-  MemeRedditChildern,
-} from "../../../interfaces/meme-reddit";
+import Feed from "../../components/Feed/Main.MemeMedia";
+import { MemeMemeMedia } from "../../../interfaces/meme-mememedia";
 import LeftProfileBar from "../../components/Feed/LeftProfileBar";
 import RightNewsBar from "../../components/Feed/RightNewsBar/RightNewsBar";
 import { template } from "../../../helpers/template";
@@ -14,37 +11,35 @@ import { CircularProgress } from "@mui/material";
 import Menu from "../../components/Feed/Tabs/Menu";
 import CreateArea from "../../components/Feed/CreateArea";
 import { useSession } from "next-auth/react";
+import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
+
 
 const feed: React.FC = () => {
   const { data: session } = useSession();
 
-  const [page, setPage] = useState<string>("");
-  const [memesArr, setMemesArr] = useState<Array<MemeRedditChildern>>([]);
+  const [memesArr, setMemesArr] = useState<Array<MemeMemeMedia>>([]);
   const [isMemeFetched, setIsMemeFetched] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
 
   const fetchMeme = async () => {
     const { templateString } = template;
-    const res = await fetch(`${templateString}/meme/general`, {
-      method: "POST",
+    const res = await fetch(`${templateString}/meme/mememedia`, {
+      method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        after: page,
-      }),
     });
     const response = await res.json();
-    setMemesArr((prev) => [...prev, ...response.data.children]);
+    setMemesArr((prev) => [...prev, ...response]);
     setIsMemeFetched(true);
     setLoading(false);
-    setPage(response.data.after);
   };
 
   useEffect(() => {
     fetchMeme();
   }, []);
 
+  
   return (
     <div className="bg-gray-900">
       <Head>
@@ -70,17 +65,17 @@ const feed: React.FC = () => {
           {isMemeFetched ? (
             <>
               <div className="w-11/12 sm:w-[545px] mx-auto my-5"></div>
-              {memesArr.map((memes: MemeRedditChildern) => {
+              {memesArr.map((memes: MemeMemeMedia) => {
                 return (
                   <Feed
-                    id={memes?.data?.id}
-                    image={memes?.data?.url_overridden_by_dest}
-                    title={memes?.data?.title}
-                    post_hint={memes?.data?.post_hint}
-                    author={memes?.data?.author}
-                    reddit_page={memes.data?.subreddit_name_prefixed}
-                    ups={memes.data?.ups}
-                  />
+                    _id={memes._id}
+                    image={memes.url_overridden_by_dest}
+                    title={memes.title}
+                    authorName={memes.authorName}
+                    authorId={memes.authorId}
+                    authorImage={memes.authorImage} 
+                    timeStamp={memes.timeStamp}                  
+                    />
                 );
               })}
               {loading ? (
@@ -91,7 +86,7 @@ const feed: React.FC = () => {
                 <button
                   className="bg-blue-500 mx-auto my-5 flex font-semibold px-6 py-2 rounded-full text-white hover:bg-blue-700 transition-all"
                   onClick={(): void => {
-                    fetchMeme(), setLoading(true);
+                    // fetchMeme(), setLoading(true);
                   }}
                 >
                   Click Load More Meme...
@@ -108,6 +103,7 @@ const feed: React.FC = () => {
           <RightNewsBar />
         </div>
       </div>
+      <button type='button' className='fixed text-white bottom-10 right-10 transition-all scale-150' onClick={() => {document.getElementById('top').scrollIntoView();}} ><ArrowCircleUpIcon className='scale-150'/></button>
     </div>
   );
 };
