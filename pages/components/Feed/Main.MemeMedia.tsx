@@ -5,6 +5,7 @@ import DownloadIcon from '@mui/icons-material/Download';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareModal from "./ShareModal"
+import Moment from 'react-moment';
 
 
 type Props = {
@@ -17,7 +18,7 @@ type Props = {
   timeStamp: Date,
 }
 
-const Feed: React.FC<Props> = ({ _id, image, title, authorId, authorImage, authorName }) => {
+const Feed: React.FC<Props> = ({ _id, image, title, authorId, authorImage, authorName, timeStamp }) => {
 
   const session = useSession<boolean>();
 
@@ -36,7 +37,7 @@ const Feed: React.FC<Props> = ({ _id, image, title, authorId, authorImage, autho
               <div>
                 <p className="ml-3">{authorName}</p>
                 <p className="ml-3 text-xs text-gray-600">
-                  date
+                  <Moment fromNow={true} from={timeStamp} ago /> ago
                 </p>
               </div>
             </div>
@@ -48,13 +49,10 @@ const Feed: React.FC<Props> = ({ _id, image, title, authorId, authorImage, autho
               <div className="text-sm py-2 font-bold text-gray-600"> 10 People loved❤️ it in reddit</div>
             </div>
             <hr />
-
-
-
             <div className="flex justify-between mt-2 sm:w-11/12 mx-auto">
               {session.status === "authenticated" && (
                 <div
-                  className="items-center font-semibold py-2 sm:p-2 cursor-pointer text-gray-100 hover:bg-gray-800 rounded-lg transition-all w-full flex justify-center" onClick={(): void => { setHasLiked(!hasLiked) }}
+                  className="items-center font-semibold py-2 sm:p-2 cursor-pointer text-gray-100 hover:bg-gray-800 rounded-lg transition-all flex justify-center" onClick={(): void => { setHasLiked(!hasLiked) }}
                 >
                   <>
                     {hasLiked ? (
