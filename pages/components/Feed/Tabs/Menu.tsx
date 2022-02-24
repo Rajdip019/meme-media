@@ -16,65 +16,68 @@ const Menu = () => {
     };
 
     const handleMenu =  () => {
-        if(router.pathname === "/feed/memes"){
+        if(router.pathname === "/feed/mememedia"){
             setValue(0)
+        }
+        if(router.pathname === "/feed/memes"){
+            setValue(0+1)
         }
         if(router.pathname === "/feed/programmingmemes"){
-            setValue(1)
+            setValue(1+1)
         }
         if(router.pathname === "/feed/gamingmemes"){
-            setValue(2)
+            setValue(2+1)
         }
         if(router.pathname === "/feed/dankmemes"){
-            setValue(3)
+            setValue(3+1)
         }
         if(router.pathname === "/feed/CollegeMemes"){
-            setValue(4)
+            setValue(4+1)
         }
         if(router.pathname === "/feed/school_memes"){
-            setValue(5)
+            setValue(5+1)
         }
         if(router.pathname === "/feed/footballmemes"){
-            setValue(6)
+            setValue(6+1)
         }
         if(router.pathname === "/feed/CricketShitpost"){
-            setValue(7)
+            setValue(7+1)
         }
         if(router.pathname === "/feed/MemeEconomy"){
-            setValue(8)
+            setValue(8+1)
         }
         if(router.pathname === "/feed/indianpeoplefacebook"){
-            setValue(9)
+            setValue(9+1)
         }
         if(router.pathname === "/feed/memes/new"){
-            setValue(0)
+            setValue(0+1)
         }
         if(router.pathname === "/feed/programmingmemes/new"){
-            setValue(1)
+            setValue(1+1)
         }
         if(router.pathname === "/feed/gamingmemes/new"){
-            setValue(2)
+            setValue(2+1)
         }
         if(router.pathname === "/feed/dankmemes/new"){
-            setValue(3)
+            setValue(3+1)
         }
         if(router.pathname === "/feed/CollegeMemes/new"){
-            setValue(4)
+            setValue(4+1)
         }
         if(router.pathname === "/feed/school_memes/new"){
-            setValue(5)
+            setValue(5+1)
         }
         if(router.pathname === "/feed/footballmemes/new"){
-            setValue(6)
+            setValue(6+1)
         }
         if(router.pathname === "/feed/CricketShitpost/new"){
-            setValue(7)
+            setValue(7+1)
         }
         if(router.pathname === "/feed/MemeEconomy/new"){
-            setValue(8)
+            setValue(8+1)
         }
         if(router.pathname === "/feed/indianpeoplefacebook/new"){
-            setValue(9)
+            setValue(9+1)
         }
     }
 
@@ -94,6 +97,7 @@ const Menu = () => {
                     allowScrollButtonsMobile
                     aria-label="scrollable force tabs example"
                 >
+                    <Tab label="Exclusive (M.M.)" sx={{ color: "white" }} onClick={(): void => {router.push("/feed/mememedia")}}/>
                     <Tab label="General" sx={{ color: "white" }} onClick={(): void => {router.push("/feed/memes")}}/>
                     <Tab label="Programming" sx={{ color: "white" }} onClick={(): void => {router.push("/feed/programmingmemes")}} />
                     <Tab label="Gaming" sx={{ color: "white" }} onClick={(): void => {router.push("/feed/gamingmemes")}} />
