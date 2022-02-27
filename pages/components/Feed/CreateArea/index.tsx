@@ -8,7 +8,8 @@ import ChildConfirmModal from "./ChildConfirmationModal";
 import { useSession } from "next-auth/react"
 import LockOpenIcon from '@mui/icons-material/LockOpen';
 import Link from "next/link";
-import {template} from "../../../../helpers/template"
+import { template } from "../../../../helpers/template"
+import LoadingBar from 'react-top-loading-bar'
 
 
 type Props = {
@@ -22,8 +23,10 @@ const CreateArea: React.FC<Props> = ({ name, image, email, id }) => {
 
     const session = useSession();
 
+    const [progress, setProgress] = useState<number>(0) //This is the state of the Loader
+
     const [open, setOpen] = useState<boolean>(false); //Handles the state of Parent Modal
-    
+
     // Functions that handles Parent Modal
     const handleOpen = () => setOpen(true);
     const handleClose = () => {
@@ -52,28 +55,35 @@ const CreateArea: React.FC<Props> = ({ name, image, email, id }) => {
         };
     };
 
+    //Posting the Meme main Function.
+
     const postMeme = async () => {
+        setProgress(15);
         const url = await imgUpload();
+        setProgress(40);
         const { templateString } = template;
         const res = await fetch(`${templateString}/addmeme`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            title: post,
-            url_overridden_by_dest: url,
-            authorId: session?.data?.user?.id,
-            authorImage: session?.data?.user?.image,
-            authorName : session?.data?.user?.name
-          }),
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                title: post,
+                url_overridden_by_dest: url,
+                authorId: session?.data?.user?.id,
+                authorImage: session?.data?.user?.image,
+                authorName: session?.data?.user?.name
+            }),
         });
+        setProgress(80)
         const response = await res.json();
+        setProgress(100);
         setLoading(false);
         handleClose();
         setPosting(false);
-      };
+    };
 
+    //Uploading the Image to Cloudinary
 
     const imgUpload = async () => {
         const data = new FormData();
@@ -81,20 +91,26 @@ const CreateArea: React.FC<Props> = ({ name, image, email, id }) => {
         data.append("upload_preset", "bookImg");
         data.append("cloud_name", "bookleemedia");
         const res = await fetch(
-          "https://api.cloudinary.com/v1_1/bookleemedia/image/upload",
-          {
-            method: "POST",
-            body: data,
-          }
+            "https://api.cloudinary.com/v1_1/bookleemedia/image/upload",
+            {
+                method: "POST",
+                body: data,
+            }
         );
         const img = await res.json();
         return img.url as string;
-      };
+    };
 
-    
+
 
     return (
         <div className=" w-11/12 sm:w-[545px] mx-auto my-5 bg-[#0D0D0D] rounded-xl  px-4 pt-4 pb-2 border-gray-500 border-[1px] border-opacity-30 text-gray-100">
+            <LoadingBar
+                color='#90CBF8'
+                progress={progress}
+                height= {4}
+                onLoaderFinished={() => setProgress(0)}
+            />
             <div className="flex items-center w-[98%] mx-auto">
                 <Avatar
                     alt={name}
@@ -103,29 +119,29 @@ const CreateArea: React.FC<Props> = ({ name, image, email, id }) => {
                     className=" ring-2 ring-white"
                 />
                 {session.status === "authenticated" ? (
-                <button
-                    onClick={(): void => {
-                        handleOpen();
-                    }}
-                    className="flex sm:w-11/12 w-10/12"
-                >
-                    <input
-                        readOnly
-                        className="w-full h-12 ml-3 rounded-full border-[1px] bg-[#0D0D0D] px-5 border-gray-700 hover:bg-gray-900 transition-all cursor-pointer text-left"
-                        placeholder="Create a Meme"
-                    />
-                </button>
+                    <button
+                        onClick={(): void => {
+                            handleOpen();
+                        }}
+                        className="flex sm:w-11/12 w-10/12"
+                    >
+                        <input
+                            readOnly
+                            className="w-full h-12 ml-3 rounded-full border-[1px] bg-[#0D0D0D] px-5 border-gray-700 hover:bg-gray-900 transition-all cursor-pointer text-left"
+                            placeholder="Create a Meme"
+                        />
+                    </button>
 
                 ) : (
-                <button
-                    className="flex sm:w-11/12 w-10/12"
-                >
-                    <input
-                        disabled
-                        className="w-full h-12 ml-3 rounded-full border-[1px] bg-[#0D0D0D] px-5 border-gray-700 hover:bg-gray-900 transition-all cursor-pointer text-left"
-                        placeholder="SignIn to Create a Meme"
-                    />
-                </button>
+                    <button
+                        className="flex sm:w-11/12 w-10/12"
+                    >
+                        <input
+                            disabled
+                            className="w-full h-12 ml-3 rounded-full border-[1px] bg-[#0D0D0D] px-5 border-gray-700 hover:bg-gray-900 transition-all cursor-pointer text-left"
+                            placeholder="SignIn to Create a Meme"
+                        />
+                    </button>
                 )}
             </div>
             {session.status === "authenticated" ? (
@@ -204,11 +220,11 @@ const CreateArea: React.FC<Props> = ({ name, image, email, id }) => {
                                     onClick={() => {
                                         filePickerRef.current.click();
                                     }}
-                                    className="flex items-center p-2 rounded-lg hover:bg-gray-200 cursor-pointer text-sm  font-semibold transition-all"
+                                    className="flex items-center p-2 rounded-lg hover:bg-slate-800 cursor-pointer text-sm  font-semibold transition-all"
                                 >
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
-                                        className="h-10 w-10 p-2 text-blue-600"
+                                        className="h-10 w-10 pr-2 py-2 text-blue-600"
                                         viewBox="0 0 20 20"
                                         fill="currentColor"
                                     >
@@ -227,8 +243,8 @@ const CreateArea: React.FC<Props> = ({ name, image, email, id }) => {
                                     />
                                 </div>
                                 {post ? (
-                                    <button className="font-bold bg-skin-main px-4 py-2 rounded-full text-white hover:bg-blue-800 transition-all"
-                                    onClick={(): void => {postMeme(); setPosting(true)}}
+                                    <button className="font-bold bg-skin-main px-4 py-2 rounded-full text-white bg-blue-800 transition-all"
+                                        onClick={(): void => { postMeme(); setPosting(true) }}
                                     >
                                         {posting ? <>Posting</> : <>Post</>}
                                     </button>
