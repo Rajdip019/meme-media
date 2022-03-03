@@ -26,7 +26,7 @@ export default function usercheck() {
                     },
                     body: JSON.stringify({
                         name: name,
-                        id: id,
+                        userid: id,
                         image: img,
                         email: email
                     }),
